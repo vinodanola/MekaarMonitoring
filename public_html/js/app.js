@@ -105,6 +105,7 @@ App.run(['$sessionStorage','$location', '$rootScope', '$stateParams', '$state', 
         $rootScope.historyBack = function () {
             $window.history.back();
         };
+        
         $rootScope.historyForward = function () {
             $window.history.forward();
         };
