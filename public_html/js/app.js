@@ -110,6 +110,9 @@ App.run(['$sessionStorage','$location', '$rootScope', '$stateParams', '$state', 
             $window.history.forward();
         };
         
+        $rootScope.TestAlert = function () {
+            alert('Test');
+        };
     }
 ]);
 
