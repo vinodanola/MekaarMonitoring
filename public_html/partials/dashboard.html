@@ -1,0 +1,93 @@
+<ui-view>
+    <ons-splitter id="appSplitter" >
+        <ons-splitter-side id="sidemenu" swipeable side="right" collapse="" >
+            <ng-include src=" 'partials/sidemenu.html' "></ng-include>
+        </ons-splitter-side>
+        <ons-splitter-content>
+            <ons-page>
+                <ons-toolbar>
+                    <div class="center">{{title}}</div>
+                    <div class="right">
+                        <ons-toolbar-button onclick="fn.toggleMenu()">
+                            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                        </ons-toolbar-button>
+                    </div>
+                </ons-toolbar>
+                <ons-list>
+                    <ons-list-header>Filter</ons-list-header>
+                    <ons-list-item modifier="chevron" tappable ui-sref="dashboard.regions">
+                        <div class="left">
+                            <ons-icon icon="fa-link"></ons-icon>
+                        </div>
+                        <div class="center">
+                            Region
+                        </div>
+                        <div class="right">
+                            Region A
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item modifier="chevron" tappable ui-sref="dashboard.areas">
+                        <div class="left">
+                            <ons-icon icon="fa-link"></ons-icon>
+                        </div>
+                        <div class="center">
+                            Area
+                        </div>
+                        <div class="right">
+                            Area A
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item modifier="chevron" tappable ui-sref="dashboard.branchs">
+                        <div class="left">
+                            <ons-icon icon="fa-link"></ons-icon>
+                        </div>
+                        <div class="center">
+                            Branch
+                        </div>
+                        <div class="right">
+                            Branch A
+                        </div>
+                    </ons-list-item>
+                </ons-list>
+                <div class="box-date">
+                    <datetime-range
+                        start="start"
+                        end="end"
+                        presets="presets"
+                        on-change="changed()"
+                        on-change-start="changedStart()"
+                        on-change-end="changedEnd()"
+                        on-close="closed()">
+                    </datetime-range>
+                </div>
+                <ons-list>
+                    <ons-list-header>Debit and Credit</ons-list-header>
+                    <ons-list-item>
+                        <div class="left">
+                          <img class="list-item__thumbnail" src="images/debit.jpeg">
+                        </div>
+                        <div class="center">
+                          <!--<span class="list-item__title">Debit</span>-->
+                          <span class="list-item__subtitle money debit">Rp 1.000.000,-</span>
+                        </div>
+                    </ons-list-item>
+                    <ons-list-item  modifier="longdivider">
+                        <div class="left">
+                            <img class="list-item__thumbnail" src="images/credit.jpeg">
+                        </div>
+                        <div class="center">
+                            <!--<span class="list-item__title">Credit</span>-->
+                            <span class="list-item__subtitle money credit">Rp 1.000.000,-</span>
+                        </div>
+                    </ons-list-item>
+                </ons-list>
+                <ons-list>
+                    <ons-list-header>To show details press button below</ons-list-header>
+                    <ons-list-item class="bar-bottom-fixed">
+                        <ons-button modifier="large" ui-sref="details">Detail</ons-button>
+                    </ons-list-item>
+                </ons-list>
+            </ons-page>
+        </ons-splitter-content>
+    </ons-splitter>
+</ui-view>

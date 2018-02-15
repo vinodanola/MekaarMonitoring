@@ -1,0 +1,82 @@
+html body .no-padding {
+  padding: 0; }
+html body .bar-bottom-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff; }
+html body .list-item__subtitle.money {
+  font-family: monospace;
+  font-size: 25px;
+  background: #efefef70;
+  line-height: 50px;
+  color: #31313a;
+  padding: 2px;
+  text-align: center;
+  border-radius: 0 50px 50px 0;
+  opacity: 1; }
+  html body .list-item__subtitle.money.debit {
+    background: #d8ffe270;
+    color: #4c8c54; }
+  html body .list-item__subtitle.money.credit {
+    background: #ffeaea70;
+    color: #a76262; }
+html body ons-search-input.on-top-page {
+  display: block; }
+  html body ons-search-input.on-top-page .search-input {
+    display: block;
+    margin: 2.5%;
+    width: 95%; }
+    html body ons-search-input.on-top-page .search-input.search-input--material {
+      border-radius: 0;
+      box-shadow: none;
+      margin: 0;
+      width: 100%; }
+html body ons-splitter-side#sidemenu {
+  width: 85%;
+  background: white; }
+  html body ons-splitter-side#sidemenu .sidemenu-header {
+    position: relative;
+    height: 170px;
+    background: #fdfdfd;
+    overflow: hidden; }
+    html body ons-splitter-side#sidemenu .sidemenu-header .profile-pic {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: transparent;
+      top: -0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border: 1px solid #ddd;
+      border-radius: 150px;
+      margin: auto;
+      overflow: hidden; }
+      html body ons-splitter-side#sidemenu .sidemenu-header .profile-pic img {
+        position: absolute;
+        top: -100px;
+        bottom: -100px;
+        left: -100px;
+        right: -100px;
+        margin: auto;
+        max-width: 150px;
+        max-height: 150px; }
+html body text-small, html body .text-small {
+  font-size: 11px; }
+html body .box-date {
+  background: #fff;
+  padding-bottom: 25px; }
+html body .datetime-range .presets .dots .dot {
+  width: 25px;
+  height: 10px; }
+html body .datetime-range .end-datetime .date, html body .datetime-range .start-datetime .date {
+  font-size: 1.2em;
+  line-height: 2.5em; }
+html body .datetime-range .end-datetime .time, html body .datetime-range .start-datetime .time {
+  display: none; }
+html body .datetime-range .timer {
+  display: none; }
+
+/*# sourceMappingURL=app.css.map */
