@@ -1,5 +1,5 @@
 <ui-view>
-    <ons-splitter var="mySplitter">
+    <ons-splitter var="mySplitter" id="mySplitter">
         <ons-splitter-side id="sidemenu" swipeable side="right" collapse>
             <ng-include src=" 'partials/sidemenu.html' "></ng-include>
         </ons-splitter-side>
@@ -8,7 +8,7 @@
                 <ons-toolbar>
                     <div class="center">{{title}}</div>
                     <div class="right">
-                        <ons-toolbar-button ng-click="$root.TestAlert()">
+                        <ons-toolbar-button ng-click="$root.openSideMenu()">
                             <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
                         </ons-toolbar-button>
                     </div>
