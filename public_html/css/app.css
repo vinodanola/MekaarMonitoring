@@ -8,7 +8,7 @@ html body .bar-bottom-fixed {
   background: #fff; }
 html body .list-item__subtitle.money {
   font-family: monospace;
-  font-size: 25px;
+  font-size: 22px;
   background: #efefef70;
   line-height: 50px;
   color: #31313a;
@@ -17,10 +17,10 @@ html body .list-item__subtitle.money {
   border-radius: 0 50px 50px 0;
   opacity: 1; }
   html body .list-item__subtitle.money.debit {
-    background: #d8ffe270;
+    background: rgba(216, 255, 226, 0.4392156863);
     color: #4c8c54; }
   html body .list-item__subtitle.money.credit {
-    background: #ffeaea70;
+    background: rgba(255, 234, 234, 0.4392156863);
     color: #a76262; }
 html body ons-search-input.on-top-page {
   display: block; }

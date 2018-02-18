@@ -10,21 +10,21 @@
         <ons-search-input placeholder="Search" class="on-top-page" ng-model="searchBranch"></ons-search-input>
     </div>
     <ons-list>
-        <ons-list-item tappable ng-repeat="x in branchs | filter:searchBranch">
+        <ons-list-item tappable ng-click="setBranchDashboard('','All')">
             <div class="left text-center">
-                <span>{{x.kode}}</span>
+                <span></span>
             </div>
             <div class="center">
-                <span class="list-item__title">{{x.nama}}</span>
+                <span class="list-item__title">All Branch</span>
             </div>
         </ons-list-item>
-<!--        <ons-list-item tappable>
+        <ons-list-item tappable ng-repeat="x in branchs | filter:searchBranch" ng-click="setBranchDashboard(x.OurBranchID,x.BranchName)">
             <div class="left text-center">
-                <span>B</span>
+                <span>{{x.OurBranchID}}</span>
             </div>
             <div class="center">
-                <span class="list-item__title">Branch B</span>
+                <span class="list-item__title">{{x.BranchName}}</span>
             </div>
-        </ons-list-item>-->
+        </ons-list-item>
     </ons-list>
 </ons-page>

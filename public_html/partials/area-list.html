@@ -7,23 +7,23 @@
         </div>
     </ons-toolbar>
     <div class="center">
-        <ons-search-input placeholder="Search" class="on-top-page"></ons-search-input>
+        <ons-search-input placeholder="Search" class="on-top-page" ng-model="searchArea"></ons-search-input>
     </div>
     <ons-list>
-        <ons-list-item tappable>
+        <ons-list-item tappable ng-click="setAreaDashboard('','All')">
             <div class="left text-center">
-                <span>A</span>
+                <span></span>
             </div>
             <div class="center">
-                <span class="list-item__title">Area A</span>
+                <span class="list-item__title">All Area</span>
             </div>
         </ons-list-item>
-        <ons-list-item tappable>
+        <ons-list-item tappable ng-repeat="x in areas | filter: searchArea" ng-click="setAreaDashboard(x.OurBranchID,x.BranchName)">
             <div class="left text-center">
-                <span>B</span>
+                <span>{{x.OurBranchID}}</span>
             </div>
             <div class="center">
-                <span class="list-item__title">Area B</span>
+                <span class="list-item__title">{{x.BranchName}}</span>
             </div>
         </ons-list-item>
     </ons-list>

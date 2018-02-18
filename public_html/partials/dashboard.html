@@ -8,7 +8,7 @@
                 <ons-toolbar>
                     <div class="center">{{title}}</div>
                     <div class="right">
-                        <ons-toolbar-button ng-click="$root.openSideMenu()">
+                        <ons-toolbar-button ng-click="mySplitter.right.open();">
                             <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
                         </ons-toolbar-button>
                     </div>
@@ -23,7 +23,7 @@
                             Region
                         </div>
                         <div class="right">
-                            Region A
+                            {{$root.dashboard.region.name}}
                         </div>
                     </ons-list-item>
                     <ons-list-item modifier="chevron" tappable ui-sref="dashboard.areas">
@@ -34,7 +34,7 @@
                             Area
                         </div>
                         <div class="right">
-                            Area A
+                            {{$root.dashboard.area.name}}
                         </div>
                     </ons-list-item>
                     <ons-list-item modifier="chevron" tappable ui-sref="dashboard.branchs">
@@ -45,14 +45,14 @@
                             Branch
                         </div>
                         <div class="right">
-                            Branch A
+                            {{$root.dashboard.branch.name}}
                         </div>
                     </ons-list-item>
                 </ons-list>
                 <div class="box-date">
                     <datetime-range
-                        start="start"
-                        end="end"
+                        start="$root.dashboard.startDate"
+                        end="$root.dashboard.endDate"
                         presets="presets"
                         on-change="changed()"
                         on-change-start="changedStart()"
@@ -68,7 +68,7 @@
                         </div>
                         <div class="center">
                           <!--<span class="list-item__title">Debit</span>-->
-                          <span class="list-item__subtitle money debit">Rp 1.000.000,-</span>
+                          <span class="list-item__subtitle money debit">Rp {{debit | number:2}}</span>
                         </div>
                     </ons-list-item>
                     <ons-list-item  modifier="longdivider">
@@ -77,14 +77,21 @@
                         </div>
                         <div class="center">
                             <!--<span class="list-item__title">Credit</span>-->
-                            <span class="list-item__subtitle money credit">Rp 1.000.000,-</span>
+                            <span class="list-item__subtitle money credit">Rp {{credit | number:2}}</span>
                         </div>
                     </ons-list-item>
                 </ons-list>
                 <ons-list>
                     <ons-list-header>To show details press button below</ons-list-header>
                     <ons-list-item class="bar-bottom-fixed">
-                        <ons-button modifier="large" ui-sref="details">Detail</ons-button>
+                        <div class="left">
+                            <ons-button modifier="outline" ng-click="searchAmount()">Search</ons-button>
+                        </div>
+                        <div class="right">
+                            <ons-button modifier="quiet" ui-sref="details({region:$root.dashboard.region.id , area:$root.dashboard.area.id , branch:$root.dashboard.branch.id, startDate:$root.dashboard.startDate })">
+                                Detail <ons-icon icon="ion-chevron-right, material:md-arrow-right"></ons-icon>
+                            </ons-button>
+                        </div>
                     </ons-list-item>
                 </ons-list>
             </ons-page>

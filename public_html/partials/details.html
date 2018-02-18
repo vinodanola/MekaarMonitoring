@@ -11,22 +11,14 @@
         <ons-search-input placeholder="Search" class="on-top-page"></ons-search-input>
     </div>
     <ons-list>
-        <ons-list-item>
+        <ons-list-item ng-repeat="x in details">
             <div class="left text-center">
-                <span>D</span>
+                <span>{{x.OurBranchID}}</span>
             </div>
             <div class="center">
-                <span class="list-item__title">Rp 1.000.000,- </span>
-                <span class="list-item__subtitle">Pembelian ATK</span>
-            </div>
-        </ons-list-item>
-        <ons-list-item>
-            <div class="left text-center">
-                <span>D</span>
-            </div>
-            <div class="center">
-                <span class="list-item__title">Rp 1.000.000,- </span>
-                <span class="list-item__subtitle">Pembelian ATK</span>
+                <span class="list-item__title"> Debit Rp {{x.DebitAmount}},- </span>
+                <span class="list-item__title"> Credit Rp {{x.CreditAmount}},- </span>
+                <span class="list-item__subtitle">{{x.BranchName}}</span>
             </div>
         </ons-list-item>
     </ons-list>

@@ -19,7 +19,7 @@ html {
         .list-item__subtitle {
             &.money {
                 font-family: monospace;
-                font-size: 25px;
+                font-size: 22px;
                 background: #efefef70;
                 line-height: 50px;
                 color: #31313a;
@@ -29,12 +29,12 @@ html {
                 opacity: 1;
 
                 &.debit {
-                    background: #d8ffe270;
+                    background: rgba(216, 255, 226, 0.4392156862745098);
                     color: #4c8c54;
                 }
                 
                 &.credit {
-                    background: #ffeaea70;
+                    background: rgba(255, 234, 234, 0.4392156862745098);
                     color: #a76262;
                 }
             }

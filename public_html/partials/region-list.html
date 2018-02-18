@@ -7,23 +7,23 @@
         </div>
     </ons-toolbar>
     <div class="center">
-        <ons-search-input placeholder="Search" class="on-top-page"></ons-search-input>
+        <ons-search-input placeholder="Search" class="on-top-page" ng-model="searchRegion"></ons-search-input>
     </div>
     <ons-list>
-        <ons-list-item tappable>
+        <ons-list-item tappable ng-click="setRegionDashboard('','All')">
             <div class="left text-center">
-                <span>A</span>
+                <span></span>
             </div>
             <div class="center">
-                <span class="list-item__title">Region A</span>
+                <span class="list-item__title">All Region</span>
             </div>
         </ons-list-item>
-        <ons-list-item tappable>
+        <ons-list-item tappable ng-repeat="x in regions | filter:searchRegion" ng-click="setRegionDashboard(x.OurBranchID,x.BranchName)">
             <div class="left text-center">
-                <span>B</span>
+                <span>{{x.OurBranchID}}</span>
             </div>
             <div class="center">
-                <span class="list-item__title">Region B</span>
+                <span class="list-item__title">{{x.BranchName}}</span>
             </div>
         </ons-list-item>
     </ons-list>
