@@ -6,15 +6,23 @@
     </div>
     <ons-list-title>Access</ons-list-title>
     <ons-list>
-      <ons-list-item ui-sref="dashboard">
-        <div class="left">
-          <ons-icon fixed-width class="list-item__icon" icon="ion-home, material:md-home"></ons-icon>
-        </div>
-        <div class="center">
-          Dashboard
-        </div>
-        <div class="right">
-          <ons-icon icon="fa-link"></ons-icon>
-        </div>
-      </ons-list-item>
+        <ons-list-item tappable ui-sref="dashboard" >
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="ion-home, material:md-home"></ons-icon>
+            </div>
+            <div class="center">
+                Dashboard
+            </div>
+            <div class="right">
+              <ons-icon icon="fa-link"></ons-icon>
+            </div>
+        </ons-list-item>
+        <ons-list-item tappable ng-click="$root.logout();">
+            <div class="left">
+                <ons-icon fixed-width class="list-item__icon" icon="ion-shutdown, material:md-shutdown"></ons-icon>
+            </div>
+            <div class="center">
+                Log out
+            </div>
+        </ons-list-item>
     </ons-list>

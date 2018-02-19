@@ -3,7 +3,6 @@ var App = angular.module('App', ['onsen' , 'ui.router' , 'ngStorage' , 'ngMask' 
 App.config( function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $provide, $base64 ) {
     
     $provide.value("apiBase", "http://103.76.17.197/api_MonMekaar/");
-    
     $provide.value("Authorization", "Basic dXNlcm5hbWU6cGFzc3dvcmQ=");
         
     $stateProvider
@@ -13,7 +12,7 @@ App.config( function($stateProvider, $urlRouterProvider, $httpProvider, $locatio
             templateUrl: 'partials/login.html',
             controller: 'loginCtrl',
             data: {
-                pageTitle: 'Dashboard'
+                pageTitle: 'Login'
             }
         })
         
@@ -86,22 +85,35 @@ App.config( function($stateProvider, $urlRouterProvider, $httpProvider, $locatio
 });
 
 
-App.run(['$sessionStorage','$location', '$rootScope', '$stateParams', '$state', '$window', '$http',
-    function($sessionStorage, $location, $rootScope, $stateParams, $state, $window, $http ) {
+App.run(['$sessionStorage','$location', '$rootScope', '$stateParams', '$state', '$window', '$http', 'apiData', 
+    function($localStorage, $location, $rootScope, $stateParams, $state, $window, $http, apiData ) {
         
-        $rootScope.$on('loading:progress', function (){
-                dialog.show();
-        });
-        $rootScope.$on('loading:finish', function (){
-                dialog.hide();
-        });
+        $rootScope.onDialog = 0;
         
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-            
             
         });
             
         $rootScope.$on('$stateChangeSuccess', function (event, current, previous) {
+            
+            $rootScope.$storage = $localStorage;
+            
+            apiData.checkauth();
+            
+            $rootScope.$on('loading:progress', function (){
+            
+                if ($rootScope.onDialog <= 0) {
+                    dialog.show();
+                }
+                $rootScope.onDialog = $rootScope.onDialog + 1;
+                
+            });
+            $rootScope.$on('loading:finish', function (){
+                $rootScope.onDialog = $rootScope.onDialog - 1;
+                if ($rootScope.onDialog <= 0)
+                    dialog.hide();
+
+            });
             
         });
         
@@ -111,6 +123,10 @@ App.run(['$sessionStorage','$location', '$rootScope', '$stateParams', '$state', 
         
         $rootScope.historyForward = function () {
             $window.history.forward();
+        };
+        
+        $rootScope.logout = function(){
+            apiData.logout();
         };
     }
 ]);
@@ -161,17 +177,41 @@ App.factory('httpInterceptor', ['$q', '$rootScope', function ($q, $rootScope) {
     }
 ]);
 
-/* Controllers */
-
-App.controller('loginCtrl',function($scope,$state){
+App.factory("apiData", function ($localStorage, $http, $rootScope, apiBase, $stateParams, $state) {
     
-    $scope.auth = function(){
-        $state.go('dashboard');
+    return {
+        
+        checkauth : function(){
+            
+            console.log('SESSION_STORAGE',$localStorage.SESSION_LOGIN);
+            
+            if ( ( $localStorage.SESSION_LOGIN == undefined || $localStorage.SESSION_LOGIN.length == 0 ) && $state.current.name != 'login') {
+                delete $rootScope.$storage.SESSION_LOGIN;
+                delete $localStorage.SESSION_LOGIN;
+                $state.go('login');
+                return false;
+            } else {
+                return true;
+            }
+            
+        },
+        
+        logout : function(){
+            
+            delete $rootScope.$storage.SESSION_LOGIN;
+            delete $localStorage.SESSION_LOGIN;
+            
+            $state.go('login');
+            
+        }
+
     };
     
 });
 
-App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authorization,$q){
+/* Controllers */
+
+App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authorization,apiData){
     
     $rootScope.dashboard = [];
     $rootScope.dashboard.region = {
@@ -188,7 +228,8 @@ App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authoriz
     };
     
     $rootScope.dashboard.startDate = moment();
-    $rootScope.dashboard.endDate = moment().add(1, 'days').add(1, 'hours');
+//    $rootScope.dashboard.endDate = moment().add(1, 'days').add(1, 'hours');
+    $rootScope.dashboard.endDate = moment();
 
     $scope.presets = [
         {
@@ -229,11 +270,11 @@ App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authoriz
     
     $scope.getAmounts = function(d){
         
-        var url = apiBase + 'MonitoringHeader?date='+d['date']+'&region='+d['region']+'&area='+d['area']+'&branch='+d['branch'];
-        
+        if (apiData.checkauth() == false) return false;
+
         $http({
             method      : "GET",
-            url         : url,
+            url         : apiBase + 'MonitoringHeader?startdate='+d['startdate']+'&enddate='+d['enddate']+'&region='+d['region']+'&area='+d['area']+'&branch='+d['branch'],
             dataType    : 'json',
             headers     : { 
                 'Content-Type'  : 'application/json',
@@ -243,7 +284,7 @@ App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authoriz
         .then(function success(R) {
 
             console.log('Amount',R);
-            
+
             $scope.debit = R.data.Data[0].DebitAmount;
             $scope.credit = R.data.Data[0].CreditAmount;
 
@@ -266,7 +307,8 @@ App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authoriz
                 typeof $rootScope.dashboard.endDate != 'undefined' 
             ) {
                 $scope.getAmounts({
-                    date    : $rootScope.dashboard.startDate.format('YYYY-MM-DD'),
+                    startdate : $rootScope.dashboard.startDate.format('YYYY-MM-DD'),
+                    enddate   : $rootScope.dashboard.endDate.format('YYYY-MM-DD'),
                     region  : $rootScope.dashboard.region.id,
                     area    : $rootScope.dashboard.area.id,
                     branch  : $rootScope.dashboard.branch.id
@@ -377,7 +419,7 @@ App.controller('detailCtrl',function($rootScope,$scope,apiBase,$http,Authorizati
         
         $http({
             method      : "GET",
-            url         : apiBase + 'MonitoringDetail?date='+d['date']+'&region='+d['region']+'&area='+d['area']+'&branch='+d['branch'],
+            url         : apiBase + 'MonitoringDetail?startdate='+d['startdate']+'&enddate='+d['enddate']+'&region='+d['region']+'&area='+d['area']+'&branch='+d['branch'],
             dataType    : 'json', 
             headers     : { 
                 'Content-Type'  : 'application/json',
@@ -390,7 +432,8 @@ App.controller('detailCtrl',function($rootScope,$scope,apiBase,$http,Authorizati
         }, function error(R) { console.log(R.statusText); });
     };
     $scope.getDetails({
-        date    : moment($stateParams.startDate).format('YYYY-MM-DD'),
+        startdate  : moment($stateParams.startDate).format('YYYY-MM-DD'),
+        enddate    : moment($stateParams.endDate).format('YYYY-MM-DD'),
         region  : $stateParams.region.id,
         area    : $stateParams.area.id,
         branch  : $stateParams.branch.id
@@ -398,7 +441,42 @@ App.controller('detailCtrl',function($rootScope,$scope,apiBase,$http,Authorizati
     
 });
 
+App.controller('loginCtrl',function($scope,$rootScope,apiBase,$http,$state,$localStorage,Authorization){
+    
+    $scope.auth = function(d){
+        
+        toastLoginFailed.hide();
+        
+        $http({
+            method      : "GET",
+            url         : apiBase + "Auth?USERNAME=" + d['username'] + '&PASSWORD=' + d['password'],
+            dataType    : "json", 
+            headers     : { 
+                'Content-Type'  : 'application/json',
+                'Authorization' : Authorization
+            }
+        }).then(function success(R) {
 
+            console.log(R);
+            
+            if (typeof(R.data.Status) != 'undefined' && R.data.Status == "1") {
+                $rootScope.$storage = $localStorage.$default({
+                    SESSION_LOGIN : R.data.Data
+                });
+                $state.go('dashboard');
+                console.log($rootScope.$storage);
+                console.log(R.data.Data);
+            } else {
+                $rootScope.$storage = $localStorage.$default({
+                    SESSION_LOGIN : []
+                });
+                $rootScope.$storage.SESSION_LOGIN = [];
+                toastLoginFailed.toggle();
+            }
+            
 
-
-
+        }, function error(R) { console.log(R.statusText); });
+        
+    };
+    
+});

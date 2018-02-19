@@ -38,7 +38,6 @@
         <script src="libs/angular-1.5.8/angular-messages.min.js"></script>
         <!--
         <script src="libs/ui-bootstrap-tpls-2.5.0.min.js"></script>
-        
         <script src="libs/angular-responsive-tables-0.4.4/angular-responsive-tables.js"></script>
         <script src="libs/angular-select2.js"></script>
         <script src="libs/textAngular/textAngular-rangy.min.js"></script>
@@ -53,7 +52,6 @@
         <script src="libs/momentjs/moment-timezone-with-data.js"></script>
         <script src="libs/momentjs/angular-moment.min.js"></script>
         <script src="libs/angular-scroll-events/scroll-events.min.js"></script>
-        
         
         <script src="libs/ngStorage.min.js"></script>
         <script src="libs/ng-mask/ngMask.min.js"></script>
@@ -109,13 +107,10 @@
         
     </head>
     <body>
-        <ons-alert-dialog var="dialog">
+        <ons-alert-dialog var="dialog" class="global-loading">
             <div class="alert-dialog-title"><ons-progress-circular indeterminate></ons-progress-circular></div>
             <div class="alert-dialog-content">
                Processing ...
-            </div>
-            <div class="alert-dialog-footer">
-              <button class="alert-dialog-button" ng-click="alertDialog.hide()">Cancel</button>
             </div>
         </ons-alert-dialog>
         <ui-view></ui-view>

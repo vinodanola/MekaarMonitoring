@@ -78,5 +78,18 @@ html body .datetime-range .end-datetime .time, html body .datetime-range .start-
   display: none; }
 html body .datetime-range .timer {
   display: none; }
+html body img.img_detail_list {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  vertical-align: middle;
+  margin-right: 5px; }
+html body .login-page-logo {
+  text-align: center;
+  padding: 10px;
+  background: #fff;
+  border-bottom: 3px solid #23b25c; }
+  html body .login-page-logo img {
+    max-width: 90%; }
 
 /*# sourceMappingURL=app.css.map */

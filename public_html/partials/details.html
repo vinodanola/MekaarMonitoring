@@ -16,9 +16,14 @@
                 <span>{{x.OurBranchID}}</span>
             </div>
             <div class="center">
-                <span class="list-item__title"> Debit Rp {{x.DebitAmount}},- </span>
-                <span class="list-item__title"> Credit Rp {{x.CreditAmount}},- </span>
-                <span class="list-item__subtitle">{{x.BranchName}}</span>
+                <span class="list-item__title">
+                    {{x.BranchName}}
+                </span>
+                <span class="list-item__subtitle">
+                    <img class="img_detail_list" src="images/debit.jpeg"> Rp {{x.DebitAmount | number:2}} 
+                    <br/>
+                    <img class="img_detail_list" src="images/credit.jpeg"> Rp {{x.CreditAmount | number:2}}
+                </span>
             </div>
         </ons-list-item>
     </ons-list>

@@ -1,13 +1,20 @@
 <ons-page>
-    <div style="text-align: center; margin-top: 50%">
-        <p>
-            <ons-input id="username" modifier="underbar" placeholder="Username" float ng-model="page.username"></ons-input>
-        </p>
-        <p>
-            <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float ng-model="page.password"></ons-input>
-        </p>
-        <p style="margin-top: 30px;">
-            <ons-button ng-click="auth()">Sign in</ons-button>
-        </p>
+    <div class="login-page-logo">
+        <img src="images/mekaar.jpeg" />
     </div>
+    <ons-list modifier="inset" style="margin-top: 100px">
+        <ons-list-header>Log in</ons-list-header>
+        <ons-list-item modifier="longdivider">
+            <input type="text" class="text-input" placeholder="Username" ng-model="username">
+        </ons-list-item>
+        <ons-list-item modifier="longdivider">
+            <input type="password" class="text-input" placeholder="Password" ng-model="password">
+        </ons-list-item>
+        <ons-list-item modifier="longdivider">
+            <ons-button ng-click="auth({ username : username , password : password })">Sign in</ons-button>
+        </ons-list-item>
+    </ons-list>
 </ons-page>
+<ons-toast var="toastLoginFailed">
+    Username or password is wrong <button ng-click="toastLoginFailed.hide()">OK</button>
+</ons-toast>

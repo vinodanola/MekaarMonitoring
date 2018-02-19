@@ -123,5 +123,25 @@ html {
         .datetime-range .timer {
             display: none;
         }
+        
+        img {
+            &.img_detail_list {
+                width: 20px;
+                height: 20px;
+                border-radius: 100%;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+        }
+        
+        .login-page-logo {
+            text-align: center;
+            padding: 10px;
+            background: #fff;
+            border-bottom: 3px solid #23b25c;
+            img {
+                max-width: 90%;
+            }
+        }
     }
 }
