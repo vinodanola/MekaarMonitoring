@@ -22,6 +22,8 @@ html body .list-item__subtitle.money {
   html body .list-item__subtitle.money.credit {
     background: rgba(255, 234, 234, 0.4392156863);
     color: #a76262; }
+html body .list-item__subtitle .p-on-lis {
+  margin: 2px 0; }
 html body ons-search-input.on-top-page {
   display: block; }
   html body ons-search-input.on-top-page .search-input {
@@ -87,9 +89,17 @@ html body img.img_detail_list {
 html body .login-page-logo {
   text-align: center;
   padding: 10px;
-  background: #fff;
-  border-bottom: 3px solid #23b25c; }
+  background: #fff; }
   html body .login-page-logo img {
     max-width: 90%; }
+html body .global-loading .alert-dialog-title--material {
+  text-align: center; }
+html body .global-loading .alert-dialog-content--material {
+  text-align: center; }
+html body .page__content {
+  height: auto !important;
+  max-height: 100%; }
+html body .login-page .page--material, html body .login-page .page--material__background {
+  background-color: #00589e; }
 
 /*# sourceMappingURL=app.css.map */

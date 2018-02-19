@@ -38,6 +38,10 @@ html {
                     color: #a76262;
                 }
             }
+            
+            .p-on-lis {
+                margin: 2px 0;
+            }
         }
         
         ons-search-input.on-top-page {
@@ -138,9 +142,25 @@ html {
             text-align: center;
             padding: 10px;
             background: #fff;
-            border-bottom: 3px solid #23b25c;
             img {
                 max-width: 90%;
+            }
+        }
+        
+        .global-loading {
+            .alert-dialog-title--material {
+                text-align: center;
+            }
+            .alert-dialog-content--material {
+                text-align: center;
+            }
+        }
+        
+        .page__content { height: auto !important; max-height: 100%; }
+        
+        .login-page {
+            .page--material, .page--material__background {
+                background-color: #00589e; 
             }
         }
     }

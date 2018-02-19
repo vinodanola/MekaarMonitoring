@@ -100,20 +100,20 @@ App.run(['$sessionStorage','$location', '$rootScope', '$stateParams', '$state', 
             
             apiData.checkauth();
             
-            $rootScope.$on('loading:progress', function (){
-            
-                if ($rootScope.onDialog <= 0) {
-                    dialog.show();
-                }
-                $rootScope.onDialog = $rootScope.onDialog + 1;
-                
-            });
-            $rootScope.$on('loading:finish', function (){
-                $rootScope.onDialog = $rootScope.onDialog - 1;
-                if ($rootScope.onDialog <= 0)
-                    dialog.hide();
-
-            });
+//            $rootScope.$on('loading:progress', function (){
+//            
+//                if ($rootScope.onDialog <= 0) {
+//                    dialog.show();
+//                }
+//                $rootScope.onDialog = $rootScope.onDialog + 1;
+//                
+//            });
+//            $rootScope.$on('loading:finish', function (){
+//                $rootScope.onDialog = $rootScope.onDialog - 1;
+//                if ($rootScope.onDialog <= 0)
+//                    dialog.hide();
+//
+//            });
             
         });
         
@@ -209,9 +209,21 @@ App.factory("apiData", function ($localStorage, $http, $rootScope, apiBase, $sta
     
 });
 
+App.factory("gF", function ($localStorage, $http, $rootScope, apiBase, $stateParams, $state) {
+    return {
+        sL : function(){
+            dialog.show();
+        },
+        
+        fL : function(){
+            dialog.hide();
+        }
+    };
+});
+
 /* Controllers */
 
-App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authorization,apiData){
+App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authorization,apiData,gF){
     
     $rootScope.dashboard = [];
     $rootScope.dashboard.region = {
@@ -271,7 +283,9 @@ App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authoriz
     $scope.getAmounts = function(d){
         
         if (apiData.checkauth() == true) {
-
+            
+            gF.sL();
+            
             $http({
                 method      : "GET",
                 url         : apiBase + 'MonitoringHeader?startdate='+d['startdate']+'&enddate='+d['enddate']+'&region='+d['region']+'&area='+d['area']+'&branch='+d['branch'],
@@ -287,8 +301,10 @@ App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authoriz
 
                 $scope.debit = R.data.Data[0].DebitAmount;
                 $scope.credit = R.data.Data[0].CreditAmount;
+                
+                gF.fL();
 
-            }, function error(R) { console.log(R.statusText); });
+            }, function error(R) { console.log(R.statusText); gF.fL(); });
         }
         
     };
@@ -321,9 +337,10 @@ App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authoriz
     
 });
 
-App.controller('regionsCtrl',function($rootScope,$scope,$http,apiBase,Authorization,$state){
+App.controller('regionsCtrl',function($rootScope,$scope,$http,apiBase,Authorization,$state,gF){
     
     $scope.getRegions = function(){
+        gF.sL();
         $http({
             method      : "GET",
             url         : apiBase + 'Region',
@@ -335,8 +352,10 @@ App.controller('regionsCtrl',function($rootScope,$scope,$http,apiBase,Authorizat
         }).then(function success(R) {
 
             $scope.regions = R.data.Data;
+            
+            gF.fL();
 
-        }, function error(R) { console.log(R.statusText); });
+        }, function error(R) { console.log(R.statusText); gF.fL(); });
     };
     $scope.getRegions();
     
@@ -350,9 +369,10 @@ App.controller('regionsCtrl',function($rootScope,$scope,$http,apiBase,Authorizat
     
 });
 
-App.controller('areasCtrl',function($rootScope,$scope,$http,apiBase,Authorization,$state){
+App.controller('areasCtrl',function($rootScope,$scope,$http,apiBase,Authorization,$state,gF){
     
     $scope.getAreas = function(region){
+        gF.sL();
         $http({
             method      : "GET",
             url         : apiBase + 'Area?region='+region,
@@ -364,8 +384,10 @@ App.controller('areasCtrl',function($rootScope,$scope,$http,apiBase,Authorizatio
         }).then(function success(R) {
 
             $scope.areas = R.data.Data;
+            
+            gF.fL();
 
-        }, function error(R) { console.log(R.statusText); });
+        }, function error(R) { console.log(R.statusText); gF.fL(); });
     };
     $scope.getAreas($rootScope.dashboard.region.id);
     
@@ -378,9 +400,10 @@ App.controller('areasCtrl',function($rootScope,$scope,$http,apiBase,Authorizatio
     
 });
 
-App.controller('branchsCtrl',function($rootScope,$scope,filterFilter,$http,apiBase,Authorization,$state){
+App.controller('branchsCtrl',function($rootScope,$scope,filterFilter,$http,apiBase,Authorization,$state,gF){
     
     $scope.getBranchs = function(region,area){
+        gF.sL();
         $http({
             method      : "GET",
             url         : apiBase + 'Branch?region='+region+'&area='+area,
@@ -392,8 +415,10 @@ App.controller('branchsCtrl',function($rootScope,$scope,filterFilter,$http,apiBa
         }).then(function success(R) {
 
             $scope.branchs = R.data.Data;
+            
+            gF.fL();
 
-        }, function error(R) { console.log(R.statusText); });
+        }, function error(R) { console.log(R.statusText); gF.fL(); });
     };
     $scope.getBranchs($rootScope.dashboard.region.id,$rootScope.dashboard.area.id);
     
@@ -405,9 +430,11 @@ App.controller('branchsCtrl',function($rootScope,$scope,filterFilter,$http,apiBa
      
 });
 
-App.controller('detailCtrl',function($rootScope,$scope,apiBase,$http,Authorization,$stateParams){
+App.controller('detailCtrl',function($rootScope,$scope,apiBase,$http,Authorization,$stateParams,gF){
     
     $scope.getDetails = function(d){
+        
+        gF.sL();
         
         if (d['date'] == undefined)
             d['date'] = '';
@@ -429,8 +456,10 @@ App.controller('detailCtrl',function($rootScope,$scope,apiBase,$http,Authorizati
         }).then(function success(R) {
 
             $scope.details = R.data.Data;
+            
+            gF.fL();
 
-        }, function error(R) { console.log(R.statusText); });
+        }, function error(R) { console.log(R.statusText); gF.fL(); });
     };
     $scope.getDetails({
         startdate  : moment($stateParams.startDate).format('YYYY-MM-DD'),
@@ -442,9 +471,11 @@ App.controller('detailCtrl',function($rootScope,$scope,apiBase,$http,Authorizati
     
 });
 
-App.controller('loginCtrl',function($scope,$rootScope,apiBase,$http,$state,$localStorage,Authorization){
+App.controller('loginCtrl',function($scope,$rootScope,apiBase,$http,$state,$localStorage,Authorization,gF){
     
     $scope.auth = function(d){
+        
+        gF.sL();
         
         toastLoginFailed.hide();
         
@@ -475,8 +506,9 @@ App.controller('loginCtrl',function($scope,$rootScope,apiBase,$http,$state,$loca
                 toastLoginFailed.toggle();
             }
             
+            gF.fL();
 
-        }, function error(R) { console.log(R.statusText); });
+        }, function error(R) { console.log(R.statusText); gF.fL(); });
         
     };
     

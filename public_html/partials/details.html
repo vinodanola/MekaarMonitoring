@@ -8,10 +8,10 @@
         <div class="center">{{title}}</div>
     </ons-toolbar>
     <div class="center">
-        <ons-search-input placeholder="Search" class="on-top-page"></ons-search-input>
+        <ons-search-input placeholder="Search" class="on-top-page" ng-model="searchDetails"></ons-search-input>
     </div>
     <ons-list>
-        <ons-list-item ng-repeat="x in details">
+        <ons-list-item ng-repeat="x in details | filter:searchDetails">
             <div class="left text-center">
                 <span>{{x.OurBranchID}}</span>
             </div>
@@ -20,9 +20,15 @@
                     {{x.BranchName}}
                 </span>
                 <span class="list-item__subtitle">
-                    <img class="img_detail_list" src="images/debit.jpeg"> Rp {{x.DebitAmount | number:2}} 
-                    <br/>
-                    <img class="img_detail_list" src="images/credit.jpeg"> Rp {{x.CreditAmount | number:2}}
+                    <p class="p-on-lis">
+                        <img class="img_detail_list" src="images/debit.jpeg"> Rp {{x.DebitAmount | number:2}} 
+                    </p>
+                    <p class="p-on-lis">
+                        <img class="img_detail_list" src="images/credit.jpeg"> Rp {{x.CreditAmount | number:2}}
+                    </p>
+                </span>
+                <span class="list-item__subtitle">
+                    {{x.Description}}
                 </span>
             </div>
         </ons-list-item>
