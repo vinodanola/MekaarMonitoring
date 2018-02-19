@@ -270,25 +270,26 @@ App.controller('dashboardCtrl',function($rootScope,$scope,$http,apiBase,Authoriz
     
     $scope.getAmounts = function(d){
         
-        if (apiData.checkauth() == false) return false;
+        if (apiData.checkauth() == true) {
 
-        $http({
-            method      : "GET",
-            url         : apiBase + 'MonitoringHeader?startdate='+d['startdate']+'&enddate='+d['enddate']+'&region='+d['region']+'&area='+d['area']+'&branch='+d['branch'],
-            dataType    : 'json',
-            headers     : { 
-                'Content-Type'  : 'application/json',
-                'Authorization' : Authorization
-            }
-        })
-        .then(function success(R) {
+            $http({
+                method      : "GET",
+                url         : apiBase + 'MonitoringHeader?startdate='+d['startdate']+'&enddate='+d['enddate']+'&region='+d['region']+'&area='+d['area']+'&branch='+d['branch'],
+                dataType    : 'json',
+                headers     : { 
+                    'Content-Type'  : 'application/json',
+                    'Authorization' : Authorization
+                }
+            })
+            .then(function success(R) {
 
-            console.log('Amount',R);
+                console.log('Amount',R);
 
-            $scope.debit = R.data.Data[0].DebitAmount;
-            $scope.credit = R.data.Data[0].CreditAmount;
+                $scope.debit = R.data.Data[0].DebitAmount;
+                $scope.credit = R.data.Data[0].CreditAmount;
 
-        }, function error(R) { console.log(R.statusText); });
+            }, function error(R) { console.log(R.statusText); });
+        }
         
     };
     
